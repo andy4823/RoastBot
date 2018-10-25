@@ -1,5 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const SQLite = require("better-sqlite3");
+const sql = new SQLite('./scores.sqlite');
 const config = require("./config.json");
 const fs = require("fs");
 const talkedRecently = new Set();

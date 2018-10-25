@@ -10,11 +10,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "better-sqlite3": "^5.0.1",
     "discord.js": "^11.4.2",
     "enmap": "^4.3.1",
     "enmap-level": "^2.1.0",
+    "erlpack": "^0.1.2",
     "fs": "0.0.1-security",
+    "libsodium-wrappers": "^0.7.3",
+    "node-gyp": "^3.8.0",
     "node-opus": "^0.3.0",
-    "opusscript": "0.0.6"
+    "opusscript": "0.0.6",
+    "rebuild": "^0.1.2",
+    "uws": "^99.0.0"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.0"
   }
 }
