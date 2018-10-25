@@ -45,7 +45,6 @@ client.on("ready", () => {
  
 client.on("message", (message) => {
   if (message.author.bot) return;
-  //client.pointsMonitor(client, message);
   if (message.content.indexOf(config.prefix) !== 0) return;
 
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
@@ -69,13 +68,26 @@ client.on('guildMemberAdd', (guildMember) => {
 client.on("message", message => {
   if (message.author.bot) return;
   if (message.guild) {
+    let score = client.
 
   }
 });
 
 client.on("ready", () => {
   
-})
+  const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
+  if (!table['count(*)']) {
+
+    sql.prepare("CREATE TABLE scores (id TEXT PRIMARY KEY, user TEXT, guild TEXT, points INTEGER, level INTEGER);").run();
+    
+    sql.prepare("CREATE UNIQUE INDEX idx_scores_id ON scores (id);").run();
+    sql.pragma("synchronous = 1");
+    sql.pragma("journal_mode = wal");
+  }
+ 
+  client.getScore = sql.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?");
+  client.setScore = sql.prepare("INSERT OR REPLACE INTO scores (id, user, guild, points, level) VALUES (@id, @user, @guild, @points, @level);");
+});
 
 
 client.login(config.token);
