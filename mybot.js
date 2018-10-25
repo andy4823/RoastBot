@@ -66,5 +66,16 @@ client.on('guildMemberAdd', (guildMember) => {
    guildMember.addRole(guildMember.guild.roles.find(role => role.name === "monkaS"));
 });
 
+client.on("message", message => {
+  if (message.author.bot) return;
+  if (message.guild) {
+
+  }
+});
+
+client.on("ready", () => {
+  
+})
+
 
 client.login(config.token);
