@@ -72,3 +72,5 @@ node_modules/level/
 node_modules/leveldown/
 
 node_modules/
+
+config\.json

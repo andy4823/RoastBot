@@ -60,7 +60,9 @@ client.on("message", (message) => {
 
 });
 
-
+client.on('guildMemberAdd', (guildMember) => {
+   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "monkaS"));
+});
 
 
 client.login(config.token);
