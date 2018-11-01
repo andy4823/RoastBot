@@ -84,7 +84,6 @@ client.on("ready", () => {
 });
 
 client.on("message", message => {
-  if (message.author.bot) return;
   let score;
   if (message.guild) {
     score = client.getScore.get(message.author.id, message.guild.id);
@@ -110,7 +109,7 @@ client.on("message", message => {
   }
     if(command === "give") {
   // Limited to guild owner - adjust to your own preference!
-  if(!message.author.id === message.guild.owner) return message.reply("Yain't the boss of me, you can't do that!");
+  if(message.author.id !== config.ownerID)  return message.reply("Yain't the boss of me, you can't do that!");
  
   const user = message.mentions.users.first() || client.users.get(args[0]);
   if(!user) return message.reply("You must mention someone or give their ID!");
@@ -144,7 +143,7 @@ if(command === "leaderboard") {
     .setTitle("Leaderboard")
     .setAuthor(client.user.username, client.user.avatarURL)
     .setDescription("Our top 10 points leaders!")
-    .setColor("orange");
+    .setColor("0x0099ff");
  
   for(const data of top10) {
     embed.addField(client.users.get(data.user).tag, `${data.points} points (level ${data.level})`);
