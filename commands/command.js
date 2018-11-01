@@ -6,6 +6,7 @@ exports.run = (client, message, args) => {
       { name: "Roasts", value: "$roast\n$offensive ⚠USE AT YOUR OWN RISK⚠"},
       { name: "Random", value: "$gretavanfleet\n$ping\n$reee\n$roasted\n$slave\n$hellyeah\n$lamp\n$turk\n$marrokaan\n$6\n$know\n$smart\n$stupid\n$suckmydick" },
       { name: "utility", value: "$whatismyavatar\n$say (gebruik: $say (text)\n$weer"},
+      { name: "points", value: "$leaderboard\n$points\n$give(admin only)"},
       { name: "Admin Commands", value: "$kick\n$ban"}
       ]
     }

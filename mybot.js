@@ -112,10 +112,10 @@ client.on("message", message => {
   if(message.author.id !== config.ownerID)  return message.reply("Yain't the boss of me, you can't do that!");
  
   const user = message.mentions.users.first() || client.users.get(args[0]);
-  if(!user) return message.reply("You must mention someone or give their ID!");
+  if(!user) return message.reply("Ewa You must mention someone or give their ID!");
  
   const pointsToAdd = parseInt(args[1], 10);
-  if(!pointsToAdd) return message.reply("You didn't tell me how many points to give...")
+  if(!pointsToAdd) return message.reply("yain't telling me how many points to give...")
  
   // Get their current points.
   let userscore = client.getScore.get(user.id, message.guild.id);
