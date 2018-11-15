@@ -7,7 +7,7 @@ const fs = require("fs");
 const talkedRecently = new Set();
 
 function roasted() {
-    var rand = ['ik bel greenpeace voor jou dikke walvis lichaam','jezus man wat een hoofd!', 'SO DE TERING','tuberculose slet', 'tyfus wees kind', 'ik krijg gelijk cholera als ik naar je kijk'];
+    var rand = ['ik bel greenpeace voor jou dikke walvis lichaam','jezus man wat een hoofd!', 'SO DE TERING','tuberculose slet', 'tyfus wees kind', 'ik krijg gelijk cholera als ik naar je kijk', 'je bent zo klein dat je 12 jaar bent en een kettingroker ;)'];
 
     return rand[Math.floor(Math.random()*rand.length)];
 } 
@@ -22,7 +22,7 @@ client.on("message", (message) => {
 });
 
 function Offensive() {
-    var OFFrand = ['Ik maak van je moeder de nieuwe anne faber', 'anne frank is nog charmanter dan jij', 'godverdomme zeg wtf heb jij voor een tumor hoofd', ' ik gooi je toekomstige kinderen voor de trein terwijl ik thomas de trein theme song aan zet', 'ik hoop dat je zelfmoord actie gaat falen', 'zelfs de trein breekt als je ervoor springt!', 'mensen horen je normaal tegen te houden maar iedereen wil jou zelfmoord zien plegen'];
+    var OFFrand = ['Ik maak van je moeder de nieuwe anne faber', 'anne frank is nog charmanter dan jij', 'godverdomme zeg wtf heb jij voor een tumor hoofd', ' ik gooi je toekomstige kinderen voor de trein terwijl ik thomas de trein theme song aan zet', 'ik hoop dat je zelfmoord actie gaat falen', 'zelfs de trein breekt als je ervoor springt!', 'mensen horen je normaal tegen te houden maar iedereen wil jou zelfmoord zien plegen', 'Er is nog genoeg tijd om een klerenhanger door je hoofd te steken.'];
 
     return OFFrand[Math.floor(Math.random()*OFFrand.length)];
 }
@@ -59,6 +59,21 @@ client.on("message", (message) => {
 
 
 
+});
+
+client.on("message", (message) => {
+  if(message.content.includes('xD')) {
+    message.reply('Dont use `XD` here fucking idiot. How old are you, 12?');
+  } else 
+  if(message.content.includes('sem')) {
+    message.reply('<:sem:512213320372322324>');
+  } else 
+  if(message.content.includes('heil')) {
+    message.reply('卐 GASS THE JEWS 卐');
+  } else
+  if(message.content.includes('kanker')) {
+    message.reply('dat was geen paracetamolletje');
+  }
 });
 
 client.on('guildMemberAdd', (guildMember) => {
@@ -105,7 +120,7 @@ client.on("message", message => {
  
   // Command-specific code here!
     if(command === "points") {
-    return message.reply(`Ewa You currently have ${score.points} points and are level ${score.level}!`);
+    return message.reply(`Ewa je hebt op het  ${score.points} punten en je bent level ${score.level}!`);
   }
     if(command === "give") {
   // Limited to guild owner - adjust to your own preference!
@@ -142,7 +157,7 @@ if(command === "leaderboard") {
   const embed = new Discord.RichEmbed()
     .setTitle("Leaderboard")
     .setAuthor(client.user.username, client.user.avatarURL)
-    .setDescription("Our top 10 points leaders!")
+    .setDescription("Onze top 10 is!")
     .setColor("0x0099ff");
  
   for(const data of top10) {
