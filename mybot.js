@@ -24,7 +24,7 @@ client.on("message", (message) => {
 function Offensive() {
     var OFFrand = ['Ik maak van je moeder de nieuwe anne faber', 'anne frank is nog charmanter dan jij', 'godverdomme zeg wtf heb jij voor een tumor hoofd', ' ik gooi je toekomstige kinderen voor de trein terwijl ik thomas de trein theme song aan zet', 'ik hoop dat je zelfmoord actie gaat falen', 'zelfs de trein breekt als je ervoor springt!', 'mensen horen je normaal tegen te houden maar iedereen wil jou zelfmoord zien plegen', 'Er is nog genoeg tijd om een klerenhanger door je hoofd te steken.'];
 
-    return OFFrand[Math.floor(Math.random()*OFFrand.length)];
+    return OFFrand[Math.floor(Math.random()*OFF-rand.length)];
 }
 
 fs.readdir("./events/", (err, files) => {
@@ -64,15 +64,42 @@ client.on("message", (message) => {
 client.on("message", (message) => {
   if(message.content.includes('xD')) {
     message.reply('Dont use `XD` here fucking idiot. How old are you, 12?');
-  } else 
-  if(message.content.includes('sem')) {
-    message.reply('<:sem:512213320372322324>');
-  } else 
-  if(message.content.includes('heil')) {
-    message.reply('卐 GASS THE JEWS 卐');
-  } else
-  if(message.content.includes('kanker')) {
-    message.reply('dat was geen paracetamolletje');
+  } 
+  else if(message.content.includes('sem')) {
+    message.reply('<:sem:512213320372322324> https://cdn.discordapp.com/emojis/512213320372322324.png?v=1');
+  } 
+  else if(message.content.includes('heil')) {
+    message.reply('卐 https://www.youtube.com/watch?v=-6CAJG0NvSk 卐');
+  } 
+  else if(message.content.includes('kanker')) {
+    message.reply('dat was geen paracetamolletje https://cdn.discordapp.com/attachments/322057072944480256/512926067141640192/paracetamol.jpg');
+  } 
+  else if(message.content.includes('FAG')) {
+    message.reply('<:sem:512213320372322324>')
+  } 
+  else if(message.content.includes('nazi')) {
+    message.reply('https://www.youtube.com/watch?v=fc-DgRO1SrQ');
+  } 
+  else if(message.content.includes('ik')) {
+    message.reply('https://www.youtube.com/watch?v=fc5jTHt5DyE');
+  } 
+  else if(message.content.includes('mij')) {
+    message.reply('https://www.youtube.com/watch?v=UVLwvCAKYs4'); 
+  } 
+  else if(message.content.includes('weghalen')) {
+    message.reply('https://cdn.discordapp.com/attachments/486080193463844877/512608473889112064/Untitled.mp4');
+  } 
+  else if(message.content.includes('carlo')) {
+    message.reply('NIET ZO SCHELDEN HIER');
+  } 
+  else if(message.content.includes('@Carloooooo')) {
+    message.reply('https://www.youtube.com/watch?v=fc-DgRO1SrQ');
+  } 
+  else if (message.content.includes('ballentent')) {
+    message.reply('https://www.youtube.com/watch?v=iE4jLaOJw9M'); 
+  } 
+  else if (message.content.includes('bruh')) {
+    message.reply('https://www.youtube.com/watch?v=2ZIpFytCSVc');
   }
 });
 

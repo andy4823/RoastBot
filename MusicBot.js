@@ -5,7 +5,7 @@ client.on("ready", () => {
   console.log("I am ready!");
 });
 
-// join en leave gedeelte 
+// join and leave section 
 client.on("message", (message) => {
 	if (!message.guild) return;
 
