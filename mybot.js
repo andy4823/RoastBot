@@ -5,6 +5,15 @@ const sql = new SQLite('./scores.sqlite');
 const config = require("./config.json");
 const fs = require("fs");
 const talkedRecently = new Set();
+const r2 = require("r2");
+const querystring = require("querystring");
+
+
+const DOG_API_URL = "https://api.thedogapi.com/";
+const DOG_API_KEY = "5ab63e48-e889-4d90-bd11-09979f542e92";
+const CAT_API_KEY   = "5ab63e48-e889-4d90-bd11-09979f542e92";
+const { CommandoClient } = require('discord.js-commando');
+const path = require('path');
 
 function roasted() {
     var rand = ['ik bel greenpeace voor jou dikke walvis lichaam','jezus man wat een hoofd!', 'SO DE TERING','tuberculose slet', 'tyfus wees kind', 'ik krijg gelijk cholera als ik naar je kijk', 'je bent zo klein dat je 12 jaar bent en een kettingroker ;)'];
@@ -24,7 +33,7 @@ client.on("message", (message) => {
 function Offensive() {
     var OFFrand = ['Ik maak van je moeder de nieuwe anne faber', 'anne frank is nog charmanter dan jij', 'godverdomme zeg wtf heb jij voor een tumor hoofd', ' ik gooi je toekomstige kinderen voor de trein terwijl ik thomas de trein theme song aan zet', 'ik hoop dat je zelfmoord actie gaat falen', 'zelfs de trein breekt als je ervoor springt!', 'mensen horen je normaal tegen te houden maar iedereen wil jou zelfmoord zien plegen', 'Er is nog genoeg tijd om een klerenhanger door je hoofd te steken.'];
 
-    return OFFrand[Math.floor(Math.random()*OFF-rand.length)];
+    return OFFrand[Math.floor(Math.random()*OFFrand.length)];
 }
 
 fs.readdir("./events/", (err, files) => {
@@ -80,9 +89,6 @@ client.on("message", (message) => {
   else if(message.content.includes('nazi')) {
     message.reply('https://www.youtube.com/watch?v=fc-DgRO1SrQ');
   } 
-  else if(message.content.includes('ik')) {
-    message.reply('https://www.youtube.com/watch?v=fc5jTHt5DyE');
-  } 
   else if(message.content.includes('mij')) {
     message.reply('https://www.youtube.com/watch?v=UVLwvCAKYs4'); 
   } 
@@ -101,11 +107,138 @@ client.on("message", (message) => {
   else if (message.content.includes('bruh')) {
     message.reply('https://www.youtube.com/watch?v=2ZIpFytCSVc');
   }
+  else if (message.content.includes('nino')) {
+    message.reply('ik ben gestopt met porno kijken voor haar. -nino');
+  }
+  else if (message.content.includes('kanker aap')) {
+    message.reply('ik weet meer over pornosites dan over mn opleiding - nino2k19');
+  }
 });
 
 client.on('guildMemberAdd', (guildMember) => {
    guildMember.addRole(guildMember.guild.roles.find(role => role.name === "monkaS"));
 });
+
+
+client.on('message', message => {
+  if (message.content === 'woof') {
+    messageRecieved(message);
+  }
+});
+
+client.on('error', data => {
+  console.log('error',data);
+  // attempt reconnection x times, after x seconds, exponential backoff
+});
+
+async function messageRecieved(message)
+{
+  try{
+    // pass the name of the user who sent the message for stats later, expect an array of images to be returned.
+    var images = await loadImage(message.author.username);
+
+    // get the Image, and first Breed from the returned object.
+    var image = images[0];
+    var breed = image.breeds[0];
+
+    console.log('message processed','showing',breed)
+    // use the *** to make text bold, and * to make italic
+    message.channel.send( "***"+breed.name + "*** \r *"+breed.temperament+"*", { files: [ image.url ] } );
+    // if you didn't want to see the text, just send the file
+
+  }catch(error)
+  {
+    console.log(error)
+  }
+}
+
+async function loadImage(sub_id)
+{
+  // you need an API key to get access to all the iamges, or see the requests you've made in the stats for your account
+  var headers = {
+      'X-API-KEY': DOG_API_KEY,
+  }
+  var query_params = {
+    'has_breeds':true, // we only want images with at least one breed data object - name, temperament etc
+    'mime_types':'jpg,png', // we only want static images as Discord doesn't like gifs
+    'size':'small',   // get the small images as the size is prefect for Discord's 390x256 limit
+    'sub_id': sub_id, // pass the message senders username so you can see how many images each user has asked for in the stats
+    'limit' : 1       // only need one
+  }
+  // convert this obejc to query string 
+  let queryString = querystring.stringify(query_params);
+
+  try {
+    // construct the API Get request url
+    let _url = DOG_API_URL + `v1/images/search?${queryString}`;
+    // make the request passing the url, and headers object which contains the API_KEY
+    var response = await r2.get(_url , {headers} ).json
+  } catch (e) {
+      console.log(e)
+  }
+  return response;
+
+}
+
+client.registry
+    .registerDefaultTypes()
+    .registerGroups([
+        ['group1', 'Our First Event Group']
+    ])
+    .registerDefaultGroups()
+    .registerDefaultCommands()
+    .registerCommandsIn(path.join(__dirname, 'events'));
+
+module.exports = class DogCommand extends commando.Command {
+    constructor(client) {
+        super(client, {
+            name: 'cat',
+            group: 'fun',
+            memberName: 'cat',
+            description: 'Meow.',
+        });
+    }
+    
+    async run(message, args) {
+      try{
+        var images = await this.loadImage(message.author.username);
+    
+        var image = images[0];
+    
+        console.log('message processed','showing image.id:',image.id)
+        message.channel.send({files: [ image.url ] } );
+    
+      }catch(error)
+      {
+        console.log(error)
+      }
+    }
+
+    async loadImage(sub_id)
+    {
+
+      var headers = {
+          'X-API-KEY': CAT_API_KEY,
+      }
+      var query_params = {
+        //'has_breeds':true,
+        'mime_types':'jpg,png',
+        'size':'med',  
+        'sub_id': sub_id, 
+        'limit' : 1
+      }
+
+      let queryString = querystring.stringify(query_params);
+    
+      try {
+        let _url = CAT_API_URL + `v1/images/search?${queryString}`;
+        var response = await r2.get(_url , {headers} ).json
+      } catch (e) {
+          console.log(e)
+      }
+      return response;
+    }
+}
 
 
 
