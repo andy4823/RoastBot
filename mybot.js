@@ -11,9 +11,8 @@ const querystring = require("querystring");
 
 const DOG_API_URL = "https://api.thedogapi.com/";
 const DOG_API_KEY = "5ab63e48-e889-4d90-bd11-09979f542e92";
-const CAT_API_KEY   = "5ab63e48-e889-4d90-bd11-09979f542e92";
-const { CommandoClient } = require('discord.js-commando');
-const path = require('path');
+const CAT_API_KEY = "2fa40a8f-388d-4136-9264-d9f65287c830";
+const CAT_API_URL = "https://api.thecatapi.com/";
 
 function roasted() {
     var rand = ['ik bel greenpeace voor jou dikke walvis lichaam','jezus man wat een hoofd!', 'SO DE TERING','tuberculose slet', 'tyfus wees kind', 'ik krijg gelijk cholera als ik naar je kijk', 'je bent zo klein dat je 12 jaar bent en een kettingroker ;)'];
@@ -113,10 +112,13 @@ client.on("message", (message) => {
   else if (message.content.includes('kanker aap')) {
     message.reply('ik weet meer over pornosites dan over mn opleiding - nino2k19');
   }
+  else if (message.content.includes('meow')) {
+    message.reply('https://cdn.discordapp.com/attachments/222432979761364993/542710061315784734/G6POsyg_-_Imgur_1.gif');
+  }
 });
 
 client.on('guildMemberAdd', (guildMember) => {
-   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "monkaS"));
+   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "WollahFakkaBroer"));
 });
 
 
@@ -125,6 +127,8 @@ client.on('message', message => {
     messageRecieved(message);
   }
 });
+
+
 
 client.on('error', data => {
   console.log('error',data);
@@ -180,151 +184,121 @@ async function loadImage(sub_id)
 
 }
 
-client.registry
-    .registerDefaultTypes()
-    .registerGroups([
-        ['group1', 'Our First Event Group']
-    ])
-    .registerDefaultGroups()
-    .registerDefaultCommands()
-    .registerCommandsIn(path.join(__dirname, 'events'));
-
-module.exports = class DogCommand extends commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'cat',
-            group: 'fun',
-            memberName: 'cat',
-            description: 'Meow.',
-        });
-    }
-    
-    async run(message, args) {
-      try{
-        var images = await this.loadImage(message.author.username);
-    
-        var image = images[0];
-    
-        console.log('message processed','showing image.id:',image.id)
-        message.channel.send({files: [ image.url ] } );
-    
-      }catch(error)
-      {
-        console.log(error)
-      }
-    }
-
-    async loadImage(sub_id)
-    {
-
-      var headers = {
-          'X-API-KEY': CAT_API_KEY,
-      }
-      var query_params = {
-        //'has_breeds':true,
-        'mime_types':'jpg,png',
-        'size':'med',  
-        'sub_id': sub_id, 
-        'limit' : 1
-      }
-
-      let queryString = querystring.stringify(query_params);
-    
-      try {
-        let _url = CAT_API_URL + `v1/images/search?${queryString}`;
-        var response = await r2.get(_url , {headers} ).json
-      } catch (e) {
-          console.log(e)
-      }
-      return response;
-    }
-}
-
 
 
 client.on("ready", () => {
-  
+  // Check if the table "points" exists.
   const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
   if (!table['count(*)']) {
-
+    // If the table isn't there, create it and setup the database correctly.
     sql.prepare("CREATE TABLE scores (id TEXT PRIMARY KEY, user TEXT, guild TEXT, points INTEGER, level INTEGER);").run();
-    
+    // Ensure that the "id" row is always unique and indexed.
     sql.prepare("CREATE UNIQUE INDEX idx_scores_id ON scores (id);").run();
     sql.pragma("synchronous = 1");
     sql.pragma("journal_mode = wal");
   }
- 
+
+  // And then we have two prepared statements to get and set the score data.
   client.getScore = sql.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?");
   client.setScore = sql.prepare("INSERT OR REPLACE INTO scores (id, user, guild, points, level) VALUES (@id, @user, @guild, @points, @level);");
 });
 
 client.on("message", message => {
+  // Ignore bots, DMs and group messages. 
+  if (message.author.bot || !message.guild) return;
+  
+
+  /* 
+    START Points CODE
+  */ 
+
+  // Initialize ("declare") the points. If we did this in the condition it would not be
+  // available later in commands. Because "scopes"! 
   let score;
+  
   if (message.guild) {
+    // Try to get the current user's score. 
     score = client.getScore.get(message.author.id, message.guild.id);
+    
+    // If the score doesn't exist (new user), initialize with defaults. 
     if (!score) {
-      score = { id: `${message.guild.id}-${message.author.id}`, user: message.author.id, guild: message.guild.id, points: 0, level: 1 }
+      score = { id: `${message.guild.id}-${message.author.id}`, user: message.author.id, guild: message.guild.id, points: 0, level: 1 };
     }
+    
+    // Increment points.
     score.points++;
+    
+    // Calculate the current level through MATH OMG HALP.
     const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
+    
+    // Check if the user has leveled up, and let them know if they have:
     if(score.level < curLevel) {
-      score.level++;
-      message.reply(`Ewa Fakka jij bent een level omhoog je bent nu level **${curLevel}**!   `);
+      // Level up!
+      message.reply(`You've leveled up to level **${curLevel}**! Ain't that amazing?`);
     }
+
+    // Save data to the sqlite table. 
+    // This looks super simple because it's calling upon the prepared statement!
     client.setScore.run(score);
   }
   if (message.content.indexOf(config.prefix) !== 0) return;
- 
+
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
- 
-  // Command-specific code here!
-    if(command === "points") {
-    return message.reply(`Ewa je hebt op het  ${score.points} punten en je bent level ${score.level}!`);
-  }
-    if(command === "give") {
-  // Limited to guild owner - adjust to your own preference!
-  if(message.author.id !== config.ownerID)  return message.reply("Yain't the boss of me, you can't do that!");
- 
-  const user = message.mentions.users.first() || client.users.get(args[0]);
-  if(!user) return message.reply("Ewa You must mention someone or give their ID!");
- 
-  const pointsToAdd = parseInt(args[1], 10);
-  if(!pointsToAdd) return message.reply("yain't telling me how many points to give...")
- 
-  // Get their current points.
-  let userscore = client.getScore.get(user.id, message.guild.id);
-  // Create data for a user we haven't seen before in the server
-  if (!userscore) {
-    userscore = { id: `${message.guild.id}-${user.id}`, user: user.id, guild: message.guild.id, points: 0, level: 1 }
-  }
-  userscore.points += pointsToAdd;
- 
-  // We also want to update their level (but we won't (@)notify them if it changes)
-  let userLevel = Math.floor(0.1 * Math.sqrt(score.points));
-  userscore.level = userLevel;
- 
-  // And we save it!
-  client.setScore.run(userscore);
- 
-  return message.channel.send(`${user.tag} has received ${pointsToAdd} points and now stands at ${userscore.points} points.`);
-}
- 
-if(command === "leaderboard") {
-  const top10 = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10;").all(message.guild.id);
- 
-    // Now shake it and show it! (as a nice embed, too!)
-  const embed = new Discord.RichEmbed()
-    .setTitle("Leaderboard")
-    .setAuthor(client.user.username, client.user.avatarURL)
-    .setDescription("Onze top 10 is!")
-    .setColor("0x0099ff");
- 
-  for(const data of top10) {
-    embed.addField(client.users.get(data.user).tag, `${data.points} points (level ${data.level})`);
-  }
-  return message.channel.send({embed});
-}
 
+  if(command === "points") {
+    return message.reply(`You currently have ${score.points} points and are level ${score.level}!`);
+  }
+  
+  if(command === "give") {
+    // Limited to guild owner - adjust to your own preference!
+    if(!message.author.id === message.guild.owner) return message.reply("You're not the boss of me, you can't do that!");
+  
+    // Try to get the user from mention. If not found, get the ID given and get a user from that ID. 
+    const user = message.mentions.users.first() || client.users.get(args[0]);
+    if(!user) return message.reply("You must mention someone or give their ID!");
+  
+    // Read the amount of points to give to the user. 
+    const pointsToAdd = parseInt(args[1], 10);
+    if(!pointsToAdd) return message.reply("You didn't tell me how many points to give...");
+  
+    // Get their current points. This can't use `score` because it's not the same user ;)
+    let userscore = client.getScore.get(user.id, message.guild.id);
+    
+    // It's possible to give points to a user we haven't seen, so we need to initiate defaults here too!
+    if (!userscore) {
+      userscore = { id: `${message.guild.id}-${user.id}`, user: user.id, guild: message.guild.id, points: 0, level: 1 };
+    }
+    
+    // Increment the score. 
+    userscore.points += pointsToAdd;
+  
+    // We also want to update their level (but we won't notify them if it changes)
+    let userLevel = Math.floor(0.1 * Math.sqrt(score.points));
+    userscore.level = userLevel;
+  
+    // And we save it!
+    client.setScore.run(userscore);
+  
+    return message.channel.send(`${user.tag} has received ${pointsToAdd} points and now stands at ${userscore.points} points.`);
+  }
+  
+  if(command === "leaderboard") {
+    // Grab the 
+    const top10 = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10;").all(message.guild.id);
+
+    // Now shake it and show it! (as a nice embed, too!)
+    const embed = new Discord.RichEmbed()
+      .setTitle("Leaderboard")
+      .setAuthor(client.user.username, client.user.avatarURL)
+      .setDescription("Our top 10 points leaders!")
+      .setColor(0x00AE86);
+
+    for(const data of top10) {
+      embed.addField(client.users.get(data.user).tag, `${data.points} points (level ${data.level})`);
+    }
+    return message.channel.send({embed});
+  }
+  
 });
 client.login(config.token);
