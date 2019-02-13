@@ -48,7 +48,7 @@ fs.readdir("./events/", (err, files) => {
  
 client.on("ready", () => {
   console.log("I am online!");
-  client.user.setActivity('you getting ROASTED', { type: 'WATCHING' })
+  client.user.setActivity('The Roast Game', { type: 'PLAYING' })
 });
  
 client.on("message", (message) => {
@@ -64,13 +64,32 @@ client.on("message", (message) => {
   } catch (err) {
   	console.error(err);
   }
-
-
-
 });
 
 client.on("message", (message) => {
-  if(message.content.includes('xD')) {
+  if (message.content.startsWith('8ball')) {
+    if ( message.content.endsWith('?')) {
+      var answers = [
+      'Misschien.', 'Lol nee.', 'Ik hoop van niet.', 'Niet in je wildste dromen -Gerrie-',
+      'Er is een grote kans.', 'Waarschijnlijk.', 'Ik denk `t wel.', 'Ik hoop van niet.',
+      'Ik hoop het.', 'Wtf nee!', 'Vergeet t maar.', 'Ahaha! Echt?!?', 'Pfft.',
+      'Sorry, schatje.', 'neuk, ja.', 'Hel tot de nee.', 'ehhhhhh, ik weet `t niet.',
+      'De toekomst is onzeker.', 'Ik zeg `t liever niet.', 'Wie boeit `t?',
+      'er is een kans.', 'nooit, nooit, nooit en nooit.', 'Er is een kleine kans', 'Ja!', 'Frikandellenbroodjes zijn de creatie van Jesus Christ'];
+      var answer = answers[Math.floor(Math.random() * answers.length)];
+    } else {
+      message.channel.send('Is dat een vraag?')
+    }
+  message.channel.send(answer);
+  } 
+
+})
+
+client.on("message", (message) => {
+  if(message.author.bot) {
+    return;
+  } 
+  else if(message.content.includes('xD' || 'XD' || 'xd')) {
     message.reply('Dont use `XD` here fucking idiot. How old are you, 12?');
   } 
   else if(message.content.includes('sem')) {
@@ -89,31 +108,28 @@ client.on("message", (message) => {
     message.reply('https://www.youtube.com/watch?v=fc-DgRO1SrQ');
   } 
   else if(message.content.includes('mij')) {
-    message.reply('https://www.youtube.com/watch?v=UVLwvCAKYs4'); 
+    message.channel.send('https://www.youtube.com/watch?v=UVLwvCAKYs4'); 
   } 
   else if(message.content.includes('weghalen')) {
     message.reply('https://cdn.discordapp.com/attachments/486080193463844877/512608473889112064/Untitled.mp4');
   } 
-  else if(message.content.includes('carlo')) {
-    message.reply('NIET ZO SCHELDEN HIER');
-  } 
   else if(message.content.includes('@Carloooooo')) {
-    message.reply('https://www.youtube.com/watch?v=fc-DgRO1SrQ');
+    message.channel.send('https://www.youtube.com/watch?v=fc-DgRO1SrQ');
   } 
   else if (message.content.includes('ballentent')) {
-    message.reply('https://www.youtube.com/watch?v=iE4jLaOJw9M'); 
+    message.channel.send('https://www.youtube.com/watch?v=iE4jLaOJw9M'); 
   } 
   else if (message.content.includes('bruh')) {
     message.reply('https://www.youtube.com/watch?v=2ZIpFytCSVc');
   }
   else if (message.content.includes('nino')) {
-    message.reply('ik ben gestopt met porno kijken voor haar. -nino');
+    message.channel.send('ik ben gestopt met porno kijken voor haar. -nino');
   }
   else if (message.content.includes('kanker aap')) {
-    message.reply('ik weet meer over pornosites dan over mn opleiding - nino2k19');
+    message.channel.send('ik weet meer over pornosites dan over mn opleiding - nino2k19');
   }
   else if (message.content.includes('meow')) {
-    message.reply('https://cdn.discordapp.com/attachments/222432979761364993/542710061315784734/G6POsyg_-_Imgur_1.gif');
+    message.channel.send('https://cdn.discordapp.com/attachments/222432979761364993/542710061315784734/G6POsyg_-_Imgur_1.gif');
   }
 });
 
