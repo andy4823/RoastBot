@@ -4,7 +4,7 @@ exports.run = (client, message, args) => {
                 title: 'Buienradar',
                 url: 'http://www.buienradar.nl/',
                 "image": {
-                "url": "http://api.buienradar.nl/image/1.0/RadarMapNL?a=.gif",
+                "url": "https://api.buienradar.nl/image/1.0/RadarMapNL?w=500&h=512",
                 }
             }
     });
