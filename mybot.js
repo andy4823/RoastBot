@@ -75,7 +75,8 @@ client.on("message", (message) => {
       'Ik hoop het.', 'Wtf nee!', 'Vergeet t maar.', 'Ahaha! Echt?!?', 'Pfft.',
       'Sorry, schatje.', 'neuk, ja.', 'Hel tot de nee.', 'ehhhhhh, ik weet `t niet.',
       'De toekomst is onzeker.', 'Ik zeg `t liever niet.', 'Wie boeit `t?',
-      'er is een kans.', 'nooit, nooit, nooit en nooit.', 'Er is een kleine kans', 'Ja!', 'Frikandellenbroodjes zijn de creatie van Jesus Christ'];
+      'er is een kans.', 'nooit, nooit, nooit en nooit.', 'Er is een kleine kans', 'Ja!', 'Frikandellenbroodjes zijn de creatie van Jesus Christ',
+      'ja, jij douwd waterflessen in zen aars.', 'jij bent de bitch van james charles'];
       var answer = answers[Math.floor(Math.random() * answers.length)];
     } else {
       message.channel.send('Is dat een vraag?')
@@ -125,7 +126,7 @@ client.on("message", (message) => {
   else if (message.content.includes('nino')) {
     message.channel.send('ik ben gestopt met porno kijken voor haar. -nino');
   }
-  else if (message.content.includes('kanker aap')) {
+  else if (message.content.includes('aap')) {
     message.channel.send('ik weet meer over pornosites dan over mn opleiding - nino2k19');
   }
   else if (message.content.includes('meow')) {
