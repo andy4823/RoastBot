@@ -15,6 +15,6 @@ exports.run = async function (Memer, msg, args) {
 		await msg.addReaction('📧')
 	} catch (e) {
 		await msg.addReaction('❌')
-		msg.channel.createMessage(`**Fuck!** *${e.message}*`)
+		msg.channel.createMessage(`**It didnt work!** *${e.message}*`)
 	}
 }
