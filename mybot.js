@@ -15,7 +15,7 @@ const CAT_API_KEY = "2fa40a8f-388d-4136-9264-d9f65287c830";
 const CAT_API_URL = "https://api.thecatapi.com/";
 
 function roasted() {
-    var rand = ['ik bel greenpeace voor jou dikke walvis lichaam','jezus man wat een hoofd!', 'SO DE TERING','tuberculose slet', 'tyfus wees kind', 'ik krijg gelijk cholera als ik naar je kijk', 'je bent zo klein dat je 12 jaar bent en een kettingroker ;)'];
+    var rand = ['je bent zo lelijk als de nacht, // more to be added  ;)'];
 
     return rand[Math.floor(Math.random()*rand.length)];
 } 
@@ -30,7 +30,7 @@ client.on("message", (message) => {
 });
 
 function Offensive() {
-    var OFFrand = ['Ik maak van je moeder de nieuwe anne faber', 'anne frank is nog charmanter dan jij', 'godverdomme zeg wtf heb jij voor een tumor hoofd', ' ik gooi je toekomstige kinderen voor de trein terwijl ik thomas de trein theme song aan zet', 'ik hoop dat je zelfmoord actie gaat falen', 'zelfs de trein breekt als je ervoor springt!', 'mensen horen je normaal tegen te houden maar iedereen wil jou zelfmoord zien plegen', 'Er is nog genoeg tijd om een klerenhanger door je hoofd te steken.'];
+    var OFFrand = ['//Need to add offensive roasts!'];
 
     return OFFrand[Math.floor(Math.random()*OFFrand.length)];
 }
@@ -75,8 +75,7 @@ client.on("message", (message) => {
       'Ik hoop het.', 'Wtf nee!', 'Vergeet t maar.', 'Ahaha! Echt?!?', 'Pfft.',
       'Sorry, schatje.', 'neuk, ja.', 'Hel tot de nee.', 'ehhhhhh, ik weet `t niet.',
       'De toekomst is onzeker.', 'Ik zeg `t liever niet.', 'Wie boeit `t?',
-      'er is een kans.', 'nooit, nooit, nooit en nooit.', 'Er is een kleine kans', 'Ja!', 'Frikandellenbroodjes zijn de creatie van Jesus Christ',
-      'ja, jij douwd waterflessen in zen aars.', 'jij bent de bitch van james charles'];
+      'er is een kans.', 'nooit, nooit, nooit en nooit.', 'Er is een kleine kans', 'Ja!', 'Frikandellenbroodjes zijn de creatie van Jesus Christ'];
       var answer = answers[Math.floor(Math.random() * answers.length)];
     } else {
       message.channel.send('Is dat een vraag?')
@@ -96,38 +95,11 @@ client.on("message", (message) => {
   else if(message.content.includes('sem')) {
     message.reply('<:sem:512213320372322324> https://cdn.discordapp.com/emojis/512213320372322324.png?v=1');
   } 
-  else if(message.content.includes('heil')) {
-    message.reply('卐 https://www.youtube.com/watch?v=-6CAJG0NvSk 卐');
-  } 
-  else if(message.content.includes('kanker')) {
-    message.reply('dat was geen paracetamolletje https://cdn.discordapp.com/attachments/322057072944480256/512926067141640192/paracetamol.jpg');
-  } 
-  else if(message.content.includes('FAG')) {
-    message.reply('<:sem:512213320372322324>')
-  } 
-  else if(message.content.includes('nazi')) {
-    message.reply('https://www.youtube.com/watch?v=fc-DgRO1SrQ');
-  } 
-  else if(message.content.includes('mij')) {
-    message.channel.send('https://www.youtube.com/watch?v=UVLwvCAKYs4'); 
-  } 
   else if(message.content.includes('weghalen')) {
     message.reply('https://cdn.discordapp.com/attachments/486080193463844877/512608473889112064/Untitled.mp4');
-  } 
-  else if(message.content.includes('@Carloooooo')) {
-    message.channel.send('https://www.youtube.com/watch?v=fc-DgRO1SrQ');
-  } 
-  else if (message.content.includes('ballentent')) {
-    message.channel.send('https://www.youtube.com/watch?v=iE4jLaOJw9M'); 
-  } 
+  }
   else if (message.content.includes('bruh')) {
     message.reply('https://www.youtube.com/watch?v=2ZIpFytCSVc');
-  }
-  else if (message.content.includes('nino')) {
-    message.channel.send('ik ben gestopt met porno kijken voor haar. -nino');
-  }
-  else if (message.content.includes('aap')) {
-    message.channel.send('ik weet meer over pornosites dan over mn opleiding - nino2k19');
   }
   else if (message.content.includes('meow')) {
     message.channel.send('https://cdn.discordapp.com/attachments/222432979761364993/542710061315784734/G6POsyg_-_Imgur_1.gif');
@@ -135,7 +107,7 @@ client.on("message", (message) => {
 });
 
 client.on('guildMemberAdd', (guildMember) => {
-   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "WollahFakkaBroer"));
+   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "Test Role"));
 });
 
 
